@@ -13,6 +13,33 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10.12
+
+      - name: Install Dependencies for Ubuntu
+        run: sudo apt-get -y install python3-pip python3-cffi python3-brotli libpango-1.0-0 libpangoft2-1.0-0
+
+      - name: Install Dependencies For Python
+        run: |
+          pip install -r requirements.txt
+
+      - name: Create env file
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env.test.local
+
+      - name: Generate coverage report
+        run: |
+          coverage run
+          coverage json
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./
+
       - name: SignIn DockerHub
         uses: docker/login-action@v1
         with:
