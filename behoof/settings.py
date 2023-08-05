@@ -103,6 +103,8 @@ DATABASES = {
 
 DATABASE_ROUTERS = ('behoof.db_router.PrimaryDataBaseRouter',)
 
+AUTH_USER_MODEL = 'users.User'
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': (
