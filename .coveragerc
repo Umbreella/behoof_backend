@@ -1,0 +1,25 @@
+[run]
+source = .
+command_line = manage.py test
+omit =
+    ./venv/*,
+    *tests*,
+    *manage.py,
+    *__init__.py,
+    *migrations*,
+    *asgi*,
+    *wsgi*,
+    *urls.py,
+    *settings.py,
+
+[report]
+omit =
+    ./venv/*,
+    *tests*,
+    *manage.py,
+    *__init__.py,
+    *migrations*,
+    *asgi*,
+    *wsgi*,
+    *urls.py,
+    *settings.py,
