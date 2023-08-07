@@ -3,6 +3,7 @@ import re
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
@@ -53,6 +54,20 @@ class User(AbstractBaseUser, PermissionsMixin):
             return fullname
 
         return f'{self.phone_number}'
+
+    def validate_unique(self, *args, **kwargs):
+        super().validate_unique(*args, **kwargs)
+
+        phone_number_is_not_unique = User.objects.using('master').filter(**{
+            'phone_number': self.phone_number,
+        }).exists()
+
+        if phone_number_is_not_unique:
+            raise ValidationError({
+                'phone_number': [
+                    'User with this Phone number already exists.'
+                ],
+            })
 
     def save(self, *args, **kwargs) -> None:
         self.first_name = self.first_name.strip()
