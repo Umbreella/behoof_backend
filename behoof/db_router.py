@@ -12,3 +12,11 @@ class PrimaryDataBaseRouter:
             return True
 
         return None
+
+
+class TestDataBaseRouter:
+    def db_for_read(self, model, **hints):
+        return 'master'
+
+    def db_for_write(self, model, **hints):
+        return 'master'

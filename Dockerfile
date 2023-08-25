@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update
-RUN apt-get -y install python3-pip python3-cffi python3-brotli
+RUN apt-get -y install python3-pip
 
 COPY requirements.txt /usr/src/app/requirements.txt
 

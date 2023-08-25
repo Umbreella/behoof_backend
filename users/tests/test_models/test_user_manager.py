@@ -13,7 +13,7 @@ class UserManagerTestCase(TestCase):
         cls.tested_class.model = User
 
         cls.data = {
-            'phone_number': 7_900_000_00_01,
+            'phone_number': '7' * 11,
             'password': 'user',
         }
 
@@ -61,10 +61,9 @@ class UserManagerTestCase(TestCase):
         self.assertEqual(expected_raise, real_raise)
 
     def test_When_CallCreateSuperUser_Should_CreateAdminUser(self):
-        user = self.tested_class.create_superuser(**{
-            'phone_number': 7_900_000_00_01,
-            'password': 'user',
-        })
+        data = self.data
+
+        user = self.tested_class.create_superuser(**data)
 
         expected_is_staff = True
         real_is_staff = user.is_staff

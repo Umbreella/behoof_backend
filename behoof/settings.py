@@ -38,7 +38,9 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'drf_yasg',
+    'phonenumber_field',
     'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
 
     'users',
 ]
@@ -46,12 +48,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'behoof.urls'
@@ -96,14 +99,19 @@ DATABASES = {
         'HOST': config.get('DJANGO_APP_DATABASE_SQL_REPLICA_HOST'),
         'PORT': config.get('DJANGO_APP_DATABASE_SQL_REPLICA_PORT'),
         'TEST': {
+            'DEPENDENCIES': ['master', ],
             'MIRROR': 'master',
         },
     },
 }
 
-DATABASE_ROUTERS = ('behoof.db_router.PrimaryDataBaseRouter',)
+DATABASE_ROUTERS = config.get('DJANGO_APP_DATABASE_ROUTER', '').split(' ')
 
 AUTH_USER_MODEL = 'users.User'
+
+AUTHENTICATION_BACKENDS = [
+    'users.backends.AuthBackend.AuthBackend',
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -145,6 +153,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+PHONENUMBER_DEFAULT_REGION = 'RU'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -182,7 +192,9 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
+
 CSRF_TRUSTED_ORIGINS = config.get('DJANGO_APP_CSRF_TRUSTED_ORIGINS').split(' ')
 CORS_ALLOWED_ORIGINS = config.get('DJANGO_APP_CORS_ALLOWED_ORIGINS').split(' ')
 
