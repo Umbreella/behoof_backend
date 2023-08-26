@@ -37,7 +37,7 @@ class LoginUserViewTestCase(APITestCase):
 
         self.assertEqual(expected_serializer, real_serializer)
 
-    def test_When_GetMethodForSignIn_Should_ErrorWithStatus405(self):
+    def test_When_GetMethod_Should_ErrorWithStatus405(self):
         response = self.client.get(self.url)
 
         expected_status = status.HTTP_405_METHOD_NOT_ALLOWED
@@ -45,7 +45,7 @@ class LoginUserViewTestCase(APITestCase):
 
         self.assertEqual(expected_status, real_status)
 
-    def test_When_PutMethodForSignIn_Should_ErrorWithStatus405(self):
+    def test_When_PutMethod_Should_ErrorWithStatus405(self):
         response = self.client.put(self.url)
 
         expected_status = status.HTTP_405_METHOD_NOT_ALLOWED
@@ -53,7 +53,7 @@ class LoginUserViewTestCase(APITestCase):
 
         self.assertEqual(expected_status, real_status)
 
-    def test_When_PatchMethodForSignIn_Should_ErrorWithStatus405(self):
+    def test_When_PatchMethod_Should_ErrorWithStatus405(self):
         response = self.client.patch(self.url)
 
         expected_status = status.HTTP_405_METHOD_NOT_ALLOWED
@@ -61,7 +61,7 @@ class LoginUserViewTestCase(APITestCase):
 
         self.assertEqual(expected_status, real_status)
 
-    def test_When_DeleteMethodForSignIn_Should_ErrorWithStatus405(self):
+    def test_When_DeleteMethod_Should_ErrorWithStatus405(self):
         response = self.client.delete(self.url)
 
         expected_status = status.HTTP_405_METHOD_NOT_ALLOWED
@@ -69,7 +69,7 @@ class LoginUserViewTestCase(APITestCase):
 
         self.assertEqual(expected_status, real_status)
 
-    def test_When_PostMethodForSignIn_Should_ErrorWithStatus400(self):
+    def test_When_PostMethod_Should_ErrorWithStatus400(self):
         data = {}
 
         response = self.client.post(self.url, data)
@@ -86,16 +86,14 @@ class LoginUserViewTestCase(APITestCase):
         self.assertEqual(expected_status, real_status)
         self.assertEqual(expected_data, real_data)
 
-    def test_When_PostMethodWithNotValidData_Should_ReturnTokensAndStatus200(
+    def test_When_PostMethodWithNotValidData_Should_ReturnErrorAndStatus401(
             self,
     ):
         data = {
             'username': 'user@test.test',
             'password': 'password',
         }
-
-        url = self.url
-        response = self.client.post(url, data)
+        response = self.client.post(self.url, data)
 
         expected_status = status.HTTP_401_UNAUTHORIZED
         real_status = response.status_code

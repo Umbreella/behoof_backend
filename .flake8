@@ -6,7 +6,6 @@ exclude =
     __pycache__,
     */migrations/*,
     */snapshots/*,
-    users/models/__init__.py,
     manage.py,
     venv/*,
 

@@ -3,10 +3,10 @@ source = .
 command_line = manage.py test
 omit =
     ./venv/*,
-    *tests*,
+    */migrations/*,
+    */tests/*,
     *manage.py,
     *__init__.py,
-    *migrations*,
     *asgi*,
     *wsgi*,
     *urls.py,
@@ -15,10 +15,10 @@ omit =
 [report]
 omit =
     ./venv/*,
-    *tests*,
+    */migrations/*,
+    */tests/*,
     *manage.py,
     *__init__.py,
-    *migrations*,
     *asgi*,
     *wsgi*,
     *urls.py,

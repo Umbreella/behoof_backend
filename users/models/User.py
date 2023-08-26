@@ -1,6 +1,7 @@
 import re
 
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 from django.db.models import CheckConstraint, Q
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -8,9 +9,13 @@ from .UserManager import UserManager
 
 
 class User(AbstractUser):
+    email = models.EmailField(**{
+        'unique': True,
+        'blank': True,
+        'help_text': 'User`s unique email address.',
+    })
     phone_number = PhoneNumberField(**{
         'unique': True,
-        'null': True,
         'blank': True,
         'max_length': 16,
         'help_text': 'User`s unique phone number.',

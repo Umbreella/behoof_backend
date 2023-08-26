@@ -24,8 +24,8 @@ class UserModelTestCase(TestCase):
     def test_Should_IncludeRequiredFields(self):
         expected_fields = [
             'logentry', 'outstandingtoken', 'id', 'password', 'last_login',
-            'is_superuser', 'first_name', 'last_name', 'email', 'is_staff',
-            'is_active', 'date_joined', 'phone_number', 'groups',
+            'is_superuser', 'first_name', 'last_name', 'is_staff', 'is_active',
+            'date_joined', 'email', 'phone_number', 'groups',
             'user_permissions',
         ]
         real_fields = [
@@ -66,6 +66,7 @@ class UserModelTestCase(TestCase):
             'id': '',
             'logentry': '',
             'outstandingtoken': '',
+            'email': 'User`s unique email address.',
             'phone_number': 'User`s unique phone number.',
         }
         real_help_text = {
@@ -153,6 +154,9 @@ class UserModelTestCase(TestCase):
             duplicate_user.save()
 
         expected_raise = {
+            'email': [
+                'User with this Email already exists.',
+            ],
             'phone_number': [
                 'User with this Phone number already exists.',
             ],

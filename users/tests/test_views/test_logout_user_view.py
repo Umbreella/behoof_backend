@@ -33,7 +33,7 @@ class LogoutUserViewTestCase(APITestCase):
 
         self.assertEqual(expected_permission_classes, real_permission_classes)
 
-    def test_When_GetMethodForSingOut_Should_ErrorWithStatus405(self):
+    def test_When_GetMethod_Should_ErrorWithStatus405(self):
         response = self.client.get(self.url)
 
         expected_status = status.HTTP_405_METHOD_NOT_ALLOWED
@@ -41,7 +41,7 @@ class LogoutUserViewTestCase(APITestCase):
 
         self.assertEqual(expected_status, real_status)
 
-    def test_When_PutMethodForSingOut_Should_ErrorWithStatus405(self):
+    def test_When_PutMethod_Should_ErrorWithStatus405(self):
         response = self.client.put(self.url)
 
         expected_status = status.HTTP_405_METHOD_NOT_ALLOWED
@@ -49,7 +49,7 @@ class LogoutUserViewTestCase(APITestCase):
 
         self.assertEqual(expected_status, real_status)
 
-    def test_When_PatchMethodForSingOut_Should_ErrorWithStatus405(self):
+    def test_When_PatchMethod_Should_ErrorWithStatus405(self):
         response = self.client.patch(self.url)
 
         expected_status = status.HTTP_405_METHOD_NOT_ALLOWED
@@ -57,7 +57,7 @@ class LogoutUserViewTestCase(APITestCase):
 
         self.assertEqual(expected_status, real_status)
 
-    def test_When_DeleteMethodForSingOut_Should_ErrorWithStatus405(self):
+    def test_When_DeleteMethod_Should_ErrorWithStatus405(self):
         response = self.client.delete(self.url)
 
         expected_status = status.HTTP_405_METHOD_NOT_ALLOWED
