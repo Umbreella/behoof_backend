@@ -15,7 +15,7 @@ class LoginUserView(TokenObtainPairView):
             'key': 'refresh',
             'value': response.data['refresh'],
             'path': '/api/users/token',
-            'domain': None,
+            'domain': 'behoof.umbreella-dev.ru',
             'secure': True,
             'httponly': True,
             'samesite': 'strict',

@@ -22,8 +22,8 @@ class User(AbstractUser):
     })
     username = None
 
-    USERNAME_FIELD = 'phone_number'
-    REQUIRED_FIELDS = ('email',)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ('phone_number',)
 
     objects = UserManager()
 
@@ -42,7 +42,7 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         self.full_clean()
 
-        if not self.password_is_hashed():
+        if self.password and not self.password_is_hashed():
             self.set_password(self.password)
 
         super().save(*args, **kwargs)

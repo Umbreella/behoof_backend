@@ -37,12 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'corsheaders',
+    'django_filters',
     'drf_yasg',
+    'graphene_django',
+    'graphene_gis',
+    'leaflet',
     'phonenumber_field',
     'rest_framework',
+    'rest_framework_gis',
     'rest_framework_simplejwt.token_blacklist',
 
     'users',
+    'restaurants',
 ]
 
 MIDDLEWARE = [
@@ -233,3 +239,7 @@ SWAGGER_SETTINGS = {
 }
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+GRAPHENE = {
+    'SCHEMA': 'behoof.graphql.schema.schema',
+}

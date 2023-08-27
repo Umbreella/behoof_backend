@@ -126,7 +126,7 @@ class LoginUserViewTestCase(APITestCase):
 
         expected_cookie = {
             'comment': '',
-            'domain': '',
+            'domain': 'behoof.umbreella-dev.ru',
             'expires': '',
             'httponly': True,
             'max-age': '',
@@ -166,7 +166,7 @@ class LoginUserViewTestCase(APITestCase):
 
         expected_cookie = {
             'comment': '',
-            'domain': '',
+            'domain': 'behoof.umbreella-dev.ru',
             'expires': '',
             'httponly': True,
             'max-age': '',

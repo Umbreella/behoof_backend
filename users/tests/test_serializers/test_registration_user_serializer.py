@@ -41,7 +41,7 @@ class RegistrationUserSerializerTestCase(TestCase):
         instance = self.user
 
         serializer = self.tested_class(instance=instance, data={
-            'phone_number': 'phone_number',
+            f'{self.tested_class.username_field}': 'username_field',
             'password': 'password',
         })
         serializer.is_valid(raise_exception=True)

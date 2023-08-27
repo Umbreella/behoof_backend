@@ -12,7 +12,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:14
+        image: postgis/postgis:14-3.4
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -32,7 +32,7 @@ jobs:
           python-version: 3.10.12
 
       - name: Install Dependencies for Ubuntu
-        run: sudo apt-get -y install python3-pip
+        run: sudo apt-get -y install binutils libproj-dev gdal-bin python3-pip
 
       - name: Install Dependencies For Python
         run: |
