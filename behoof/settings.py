@@ -47,8 +47,9 @@ INSTALLED_APPS = [
     'rest_framework_gis',
     'rest_framework_simplejwt.token_blacklist',
 
-    'users',
+    'foods',
     'restaurants',
+    'users',
 ]
 
 MIDDLEWARE = [

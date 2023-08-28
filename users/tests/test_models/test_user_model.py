@@ -80,11 +80,11 @@ class UserModelTestCase(TestCase):
 
         self.assertEqual(expected_help_text, real_help_text)
 
-    def test_When_CreateUserWithOutData_Should_ErrorBlankField(self):
-        user = self.tested_class()
+    def test_When_CreateInstanceWithOutData_Should_ErrorBlankField(self):
+        instance = self.tested_class()
 
         with self.assertRaises(ValidationError) as _raise:
-            user.save()
+            instance.save()
 
         expected_raise = {
             'password': [
@@ -105,10 +105,10 @@ class UserModelTestCase(TestCase):
             'phone_number': '1' * 16,
         })
 
-        user = self.tested_class(**data)
+        instance = self.tested_class(**data)
 
         with self.assertRaises(ValidationError) as _raise:
-            user.save()
+            instance.save()
 
         expected_raise = {
             'first_name': [
@@ -134,19 +134,19 @@ class UserModelTestCase(TestCase):
     def test_When_AllDataIsValid_Should_SaveUserAndReturnPhoneAsStr(self):
         data = self.data
 
-        user = self.tested_class(**data)
-        user.save()
+        instance = self.tested_class(**data)
+        instance.save()
 
-        expected_str = f'{user.phone_number}'
-        real_str = str(user)
+        expected_str = f'{instance.phone_number}'
+        real_str = str(instance)
 
         self.assertEqual(expected_str, real_str)
 
     def test_When_DuplicateUserEmail_Should_ErrorDuplicateUser(self):
         data = self.data
 
-        user = self.tested_class(**data)
-        user.save()
+        instance = self.tested_class(**data)
+        instance.save()
 
         duplicate_user = User(**data)
 

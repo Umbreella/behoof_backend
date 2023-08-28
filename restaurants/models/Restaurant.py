@@ -4,7 +4,7 @@ from django.contrib.gis.db import models
 class Restaurant(models.Model):
     address = models.CharField(**{
         'max_length': 255,
-        'help_text': 'Human readable address',
+        'help_text': 'Human readable address.',
     })
     geo_position = models.PointField()
     coverage_area = models.PolygonField()

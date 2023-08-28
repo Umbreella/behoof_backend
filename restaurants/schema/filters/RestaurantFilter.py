@@ -7,9 +7,11 @@ from graphql import GraphQLError
 
 
 class RestaurantFilter(FilterSet):
-    position = CharFilter(method='position_filter')
+    position = CharFilter(**{
+        'method': '_position_filter',
+    })
 
-    def position_filter(self, queryset, name, value):
+    def _position_filter(self, queryset, name, value):
         try:
             position = [float(item) for item in json.loads(value)]
             assert len(position) == 2
