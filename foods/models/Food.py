@@ -50,7 +50,9 @@ class Food(models.Model):
         'decimal_places': 1,
         'help_text': 'Amount of carbohydrates.',
     })
-    kilocalories = models.PositiveIntegerField(**{
+    kilocalories = models.DecimalField(**{
+        'max_digits': 6,
+        'decimal_places': 1,
         'help_text': 'Amount of kilocalories.',
     })
 
@@ -74,6 +76,9 @@ class Food(models.Model):
 
         if self.carbohydrates:
             self.carbohydrates = round(self.carbohydrates, 1)
+
+        if self.kilocalories:
+            self.kilocalories = round(self.kilocalories, 1)
 
         self.full_clean()
         super().save(*args, *kwargs)

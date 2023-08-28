@@ -34,7 +34,7 @@ class FoodTestCase(TestCase):
             'proteins': 10.0,
             'fats': 10.0,
             'carbohydrates': 10.0,
-            'kilocalories': 100,
+            'kilocalories': 10.0,
         }
 
     def test_Should_IncludeRequiredFields(self):
@@ -62,7 +62,7 @@ class FoodTestCase(TestCase):
             'proteins': DecimalField,
             'fats': DecimalField,
             'carbohydrates': DecimalField,
-            'kilocalories': PositiveIntegerField,
+            'kilocalories': DecimalField,
             'is_published': BooleanField,
         }
         real_fields = {
@@ -169,6 +169,7 @@ class FoodTestCase(TestCase):
             'proteins': decimal.Decimal(0.12345),
             'fats': decimal.Decimal(0.12345),
             'carbohydrates': decimal.Decimal(0.12345),
+            'kilocalories': decimal.Decimal(0.12345),
         })
 
         instance = self.tested_class(**data)
@@ -186,10 +187,14 @@ class FoodTestCase(TestCase):
         expected_carbohydrates = 0.1
         real_carbohydrates = float(instance.carbohydrates)
 
+        expected_kilocalories = 0.1
+        real_kilocalories = float(instance.kilocalories)
+
         self.assertEqual(expected_price, real_price)
         self.assertEqual(expected_proteins, real_proteins)
         self.assertEqual(expected_fats, real_fats)
         self.assertEqual(expected_carbohydrates, real_carbohydrates)
+        self.assertEqual(expected_kilocalories, real_kilocalories)
 
     def test_When_AllDataIsValid_Should_SaveInstanceAndReturnTitleAsStr(self):
         data = self.data

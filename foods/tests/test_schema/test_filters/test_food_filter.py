@@ -39,7 +39,7 @@ class FoodFilterTestCase(TestCase):
                 'proteins': 10.0,
                 'fats': 10.0,
                 'carbohydrates': 10.0,
-                'kilocalories': 100,
+                'kilocalories': 10.0,
                 'is_published': True,
             }),
             Food(**{
@@ -54,7 +54,7 @@ class FoodFilterTestCase(TestCase):
                 'proteins': 10.0,
                 'fats': 10.0,
                 'carbohydrates': 10.0,
-                'kilocalories': 100,
+                'kilocalories': 10.0,
                 'is_published': True,
             }),
         ])

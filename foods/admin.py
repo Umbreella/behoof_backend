@@ -17,8 +17,8 @@ class CategoryModelAdmin(admin.ModelAdmin):
 @admin.register(Food)
 class FoodModelAdmin(admin.ModelAdmin):
     list_display = (
-        'title', 'price', 'weight', 'is_published',
+        'title', 'price', 'is_published',
     )
     list_filter = (
-        'is_published',
+        'category', 'is_published',
     )

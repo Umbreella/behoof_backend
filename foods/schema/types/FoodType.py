@@ -11,7 +11,7 @@ class FoodType(DjangoObjectType):
     proteins = graphene.Float()
     fats = graphene.Float()
     carbohydrates = graphene.Float()
-    kilocalories = graphene.Int()
+    kilocalories = graphene.Float()
 
     class Meta:
         model = Food

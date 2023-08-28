@@ -39,7 +39,7 @@ class FoodTypeTestCase(TestCase):
                 'proteins': 10.0,
                 'fats': 10.0,
                 'carbohydrates': 10.0,
-                'kilocalories': 100,
+                'kilocalories': 10.0,
                 'is_published': True,
             }),
         ])
@@ -84,7 +84,7 @@ class FoodTypeTestCase(TestCase):
             'proteins': graphene.Float,
             'fats': graphene.Float,
             'carbohydrates': graphene.Float,
-            'kilocalories': graphene.Int,
+            'kilocalories': graphene.Float,
         }
         real_fields = {
             key: value.type
@@ -96,8 +96,6 @@ class FoodTypeTestCase(TestCase):
                 'id', 'preview', 'title', 'composition', 'description',
             ]
         ])
-
-        self.maxDiff = None
 
         self.assertEqual(expected_fields, real_fields)
         self.assertTrue(all_fields_is_nonnull)
@@ -136,7 +134,7 @@ class FoodTypeTestCase(TestCase):
                     'proteins': 10.0,
                     'fats': 10.0,
                     'carbohydrates': 10.0,
-                    'kilocalories': 100,
+                    'kilocalories': 10.0,
                 },
             },
         }
