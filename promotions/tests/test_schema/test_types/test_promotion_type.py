@@ -1,45 +1,29 @@
 import graphene
 from django.test import TestCase
-from graphene import Context, NonNull, Schema
+from django.utils import timezone
+from graphene import Context, NonNull, Schema, relay
 from graphene.test import Client
 
-from ....models.Category import Category
-from ....models.Food import Food
-from ....schema.nodes.FoodNode import FoodNode
-from ....schema.types.FoodType import FoodType
+from ....models.Promotion import Promotion
+from ....schema.types.PromotionType import PromotionType
 
 
-class FoodTypeTestCase(TestCase):
+class PromotionTypeTestCase(TestCase):
     databases = {'master', }
 
     @classmethod
     def setUpTestData(cls):
-        cls.tested_class = FoodType
-        cls.model = Food
+        cls.tested_class = PromotionType
+        cls.model = Promotion
 
-        Category.objects.bulk_create([
-            Category(**{
-                'id': 1,
-                'title': 'title_1',
-                'is_published': True,
-            }),
-        ])
+        cls.time_now = timezone.now()
 
-        Food.objects.bulk_create([
-            Food(**{
+        Promotion.objects.bulk_create([
+            Promotion(**{
                 'id': 1,
-                'category_id': 1,
-                'preview': 'tmp_file',
+                'preview': 'preview',
                 'title': 'title',
-                'composition': 'composition',
                 'description': 'description',
-                'price': 100,
-                'weight': 100,
-                'proteins': 10.0,
-                'fats': 10.0,
-                'carbohydrates': 10.0,
-                'kilocalories': 10.0,
-                'is_published': True,
             }),
         ])
 
@@ -49,7 +33,7 @@ class FoodTypeTestCase(TestCase):
 
     def setUp(self):
         class TestQuery(graphene.ObjectType):
-            test = FoodNode.Field(self.tested_class)
+            test = relay.Node.Field(self.tested_class)
 
         self.gql_client = Client(**{
             'schema': Schema(**{
@@ -65,7 +49,7 @@ class FoodTypeTestCase(TestCase):
 
     def test_Should_IncludeDefiniteInterfaces(self):
         expected_interfaces = [
-            FoodNode,
+            relay.Node,
         ]
         real_interfaces = list(self.tested_class._meta.interfaces)
 
@@ -73,22 +57,14 @@ class FoodTypeTestCase(TestCase):
 
     def test_Should_IncludeRequiredFieldsFromModel(self):
         expected_fields = [
-            'id', 'preview', 'title', 'composition', 'description', 'price',
-            'weight', 'proteins', 'fats', 'carbohydrates', 'kilocalories',
+            'id', 'preview', 'title', 'description', 'start_time', 'end_time',
         ]
         real_fields = list(self.tested_class._meta.fields)
 
         self.assertEqual(expected_fields, real_fields)
 
     def test_Should_SpecificTypeForEachField(self):
-        expected_fields = {
-            'price': graphene.Float,
-            'weight': graphene.Int,
-            'proteins': graphene.Float,
-            'fats': graphene.Float,
-            'carbohydrates': graphene.Float,
-            'kilocalories': graphene.Float,
-        }
+        expected_fields = {}
         real_fields = {
             key: value.type
             for key, value in self.tested_class._meta.fields.items()
@@ -96,7 +72,8 @@ class FoodTypeTestCase(TestCase):
 
         all_fields_is_nonnull = all([
             real_fields.pop(field).__class__ == NonNull for field in [
-                'id', 'preview', 'title', 'composition', 'description',
+                'id', 'preview', 'title', 'description', 'start_time',
+                'end_time',
             ]
         ])
 
@@ -107,18 +84,11 @@ class FoodTypeTestCase(TestCase):
         response = self.gql_client.execute(
             """
             query {
-                test (id: "Rm9vZFR5cGU6MQ==") {
+                test (id: "UHJvbW90aW9uVHlwZTox") {
                     id
                     preview
                     title
-                    composition
                     description
-                    price
-                    weight
-                    proteins
-                    fats
-                    carbohydrates
-                    kilocalories
                 }
             }
             """,
@@ -128,17 +98,10 @@ class FoodTypeTestCase(TestCase):
         expected_data = {
             'data': {
                 'test': {
-                    'id': 'Rm9vZFR5cGU6MQ==',
-                    'title': 'title',
+                    'id': 'UHJvbW90aW9uVHlwZTox',
                     'preview': 'build_absolute_uri',
-                    'composition': 'composition',
+                    'title': 'title',
                     'description': 'description',
-                    'price': 100.0,
-                    'weight': 100,
-                    'proteins': 10.0,
-                    'fats': 10.0,
-                    'carbohydrates': 10.0,
-                    'kilocalories': 10.0,
                 },
             },
         }

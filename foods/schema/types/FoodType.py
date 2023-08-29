@@ -22,4 +22,4 @@ class FoodType(DjangoObjectType):
         interfaces = (FoodNode,)
 
     def resolve_preview(self, info):
-        return self.preview.url
+        return info.context.build_absolute_uri(self.preview.url)
