@@ -24,7 +24,7 @@ class RestaurantFilter(FilterSet):
         queryset = queryset.annotate(**{
             'distance': Distance('geo_position', user_location),
         }).order_by(
-            'distance'
+            'distance',
         )[:1]
 
         return queryset

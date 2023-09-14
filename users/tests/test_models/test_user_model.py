@@ -8,7 +8,9 @@ from ...models import User
 
 
 class UserModelTestCase(TestCase):
-    databases = {'master', 'slave', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

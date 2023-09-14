@@ -1,19 +1,25 @@
+FROM python:3.10-slim as builder
+
+RUN pip install poetry
+
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+
+RUN poetry config virtualenvs.in-project true --local && \
+    poetry install --without dev,test
+
+
 FROM python:3.10-slim
+
+RUN apt-get update
+RUN apt-get -y install binutils libproj-dev gdal-bin
+
+COPY --from=builder /usr/src/app /usr/src/app
 
 WORKDIR /usr/src/app
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-RUN apt-get update
-RUN apt-get -y install binutils libproj-dev gdal-bin python3-pip
-
-COPY requirements.txt /usr/src/app/requirements.txt
-
-RUN pip3 install --upgrade pip && pip3 install -r requirements.txt
-
-COPY . /usr/src/app/
-
 EXPOSE 8000
 
-CMD ["uvicorn", "behoof.asgi:application", "--host", "0.0.0.0", "--port", "8000"]
+ENV PATH="/usr/src/app/.venv/bin:$PATH"
+
+CMD ["gunicorn", "behoof.wsgi:application", "-b", ":8000"]

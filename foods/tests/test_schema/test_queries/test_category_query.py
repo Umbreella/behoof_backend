@@ -7,7 +7,9 @@ from ....schema.queries.CategoryQuery import CategoryQuery
 
 
 class CategoryQueryTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

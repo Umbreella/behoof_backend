@@ -2,9 +2,10 @@ import decimal
 import tempfile
 
 from django.core.exceptions import ValidationError
-from django.db.models import (BigAutoField, BooleanField, CharField,
-                              DecimalField, ForeignKey, ImageField,
-                              PositiveIntegerField, TextField)
+from django.db.models import (
+    BigAutoField, BooleanField, CharField, DecimalField, ForeignKey,
+    ImageField, PositiveIntegerField, TextField,
+)
 from django.test import TestCase
 
 from ...models.Category import Category
@@ -12,7 +13,9 @@ from ...models.Food import Food
 
 
 class FoodTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

@@ -8,7 +8,9 @@ from ...models.Promotion import Promotion
 
 
 class PromotionTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

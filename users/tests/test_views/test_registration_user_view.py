@@ -9,7 +9,9 @@ from ...views.RegistrationUserView import RegistrationUserView
 
 
 class RegistrationUserViewTestCase(APITestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):
@@ -98,7 +100,7 @@ class RegistrationUserViewTestCase(APITestCase):
         real_status = response.status_code
 
         expected_data_keys = (
-            'refresh', 'access'
+            'refresh', 'access',
         )
         real_data_keys = tuple(response.data.keys())
 

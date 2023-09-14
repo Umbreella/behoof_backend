@@ -11,7 +11,9 @@ from ...views.RefreshTokenView import RefreshTokenView
 
 
 class RefreshTokenViewTestCase(APITestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

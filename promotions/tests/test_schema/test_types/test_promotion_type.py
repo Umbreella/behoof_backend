@@ -9,7 +9,9 @@ from ....schema.types.PromotionType import PromotionType
 
 
 class PromotionTypeTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

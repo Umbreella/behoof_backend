@@ -10,7 +10,9 @@ from ....schema.types.FoodType import FoodType
 
 
 class FoodTypeTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

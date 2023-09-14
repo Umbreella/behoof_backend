@@ -9,7 +9,9 @@ from ...views.CheckAccessView import CheckAccessView
 
 
 class CheckAccessViewTestCase(APITestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

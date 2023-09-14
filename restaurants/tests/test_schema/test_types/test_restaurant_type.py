@@ -9,7 +9,9 @@ from ....schema.types.RestaurantType import RestaurantType
 
 
 class RestaurantTypeTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):
@@ -96,17 +98,29 @@ class RestaurantTypeTestCase(TestCase):
                     'address': 'address',
                     'geoPosition': {
                         'type': 'Point',
-                        'coordinates': [0.0, 0.0, ],
+                        'coordinates': [
+                            0.0, 0.0,
+                        ],
                     },
                     'coverageArea': {
                         'type': 'Polygon',
                         'coordinates': [
                             [
-                                [0.0, 0.0, ],
-                                [0.0, 1.0, ],
-                                [1.0, 1.0, ],
-                                [1.0, 0.0, ],
-                                [0.0, 0.0, ],
+                                [
+                                    0.0, 0.0,
+                                ],
+                                [
+                                    0.0, 1.0,
+                                ],
+                                [
+                                    1.0, 1.0,
+                                ],
+                                [
+                                    1.0, 0.0,
+                                ],
+                                [
+                                    0.0, 0.0,
+                                ],
                             ],
                         ],
                     },

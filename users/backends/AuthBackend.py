@@ -17,7 +17,7 @@ class AuthBackend(ModelBackend):
 
         try:
             user = UserModel._default_manager.get(
-                Q(email=username) | Q(phone_number=username)
+                Q(email=username) | Q(phone_number=username),
             )
         except UserModel.DoesNotExist:
             return None

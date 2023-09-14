@@ -7,7 +7,9 @@ from ....schema.queries.PromotionQuery import PromotionQuery
 
 
 class PromotionQueryTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

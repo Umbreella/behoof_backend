@@ -1,13 +1,16 @@
 from django.core.exceptions import ValidationError
-from django.db.models import (BigAutoField, BooleanField, CharField,
-                              ManyToOneRel)
+from django.db.models import (
+    BigAutoField, BooleanField, CharField, ManyToOneRel,
+)
 from django.test import TestCase
 
 from ...models.Category import Category
 
 
 class CategoryTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

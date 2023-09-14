@@ -8,7 +8,9 @@ from ....schema.queries.FoodQuery import FoodQuery
 
 
 class FoodQueryTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

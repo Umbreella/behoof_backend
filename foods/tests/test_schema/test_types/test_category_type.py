@@ -8,7 +8,9 @@ from ....schema.types.CategoryType import CategoryType
 
 
 class CategoryTypeTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

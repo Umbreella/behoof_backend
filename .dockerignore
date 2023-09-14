@@ -24,4 +24,5 @@ local_settings.py
 db.sqlite3
 static/
 media/
-/README.md
+/.venv/
+/.*

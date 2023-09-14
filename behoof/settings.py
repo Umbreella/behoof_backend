@@ -17,7 +17,7 @@ config = {
 
 if 'test' in sys.argv:
     config = {
-        **dotenv_values('.env.test.local')
+        **dotenv_values('.env.test.local'),
     }
 
 SECRET_KEY = config.get('DJANGO_APP_SECRET_KEY')
@@ -105,10 +105,7 @@ DATABASES = {
         'PASSWORD': config.get('DJANGO_APP_DATABASE_SQL_REPLICA_PASSWORD'),
         'HOST': config.get('DJANGO_APP_DATABASE_SQL_REPLICA_HOST'),
         'PORT': config.get('DJANGO_APP_DATABASE_SQL_REPLICA_PORT'),
-        'TEST': {
-            'DEPENDENCIES': ['master', ],
-            'MIRROR': 'master',
-        },
+        # 'ATOMIC_REQUESTS': True,
     },
 }
 
@@ -235,8 +232,8 @@ SWAGGER_SETTINGS = {
         'Bearer': {
             'type': 'apiKey',
             'name': 'Authorization',
-            'in': 'header'
-        }
+            'in': 'header',
+        },
     },
 }
 

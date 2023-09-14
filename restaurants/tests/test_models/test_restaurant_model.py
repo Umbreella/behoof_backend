@@ -1,5 +1,6 @@
-from django.contrib.gis.db.models import (BigAutoField, CharField, PointField,
-                                          PolygonField)
+from django.contrib.gis.db.models import (
+    BigAutoField, CharField, PointField, PolygonField,
+)
 from django.contrib.gis.geos import Point, Polygon
 from django.core.exceptions import ValidationError
 from django.test import TestCase
@@ -8,7 +9,9 @@ from ...models.Restaurant import Restaurant
 
 
 class RestaurantTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

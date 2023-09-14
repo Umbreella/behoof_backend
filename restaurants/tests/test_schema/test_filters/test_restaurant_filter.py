@@ -8,7 +8,9 @@ from ....schema.filters.RestaurantFilter import RestaurantFilter
 
 
 class RestaurantFilterTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

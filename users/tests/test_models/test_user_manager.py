@@ -5,7 +5,9 @@ from ...models.UserManager import UserManager
 
 
 class UserManagerTestCase(TestCase):
-    databases = {'master', 'slave', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

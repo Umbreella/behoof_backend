@@ -2,12 +2,15 @@ from django.test import TestCase
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from ...models import User
-from ...serializers.RegistrationUserSerializer import \
-    RegistrationUserSerializer
+from ...serializers.RegistrationUserSerializer import (
+    RegistrationUserSerializer,
+)
 
 
 class RegistrationUserSerializerTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):

@@ -4,9 +4,10 @@ inline-quotes = single
 exclude =
     .git,
     __pycache__,
+    ./venv/*,
+    ./.venv/*,
     */migrations/*,
     */snapshots/*,
     manage.py,
-    venv/*,
 
 max-complexity = 10

@@ -6,7 +6,9 @@ class PrimaryDataBaseRouter:
         return 'master'
 
     def allow_relation(self, obj1, obj2, **hints):
-        db_set = {'master', 'slave'}
+        db_set = {
+            'master',
+        }
 
         if obj1._state.db in db_set and obj2._state.db in db_set:
             return True

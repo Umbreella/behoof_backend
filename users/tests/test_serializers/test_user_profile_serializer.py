@@ -7,7 +7,9 @@ from ...serializers.UserProfileSerializer import UserProfileSerializer
 
 
 class UserProfileSerializerTestCase(TestCase):
-    databases = {'master', }
+    databases = {
+        'master',
+    }
 
     @classmethod
     def setUpTestData(cls):
