@@ -18,12 +18,20 @@ class Food(models.Model):
     })
     title = models.CharField(**{
         'max_length': 255,
+        'default': '',
         'help_text': 'Food title.',
     })
     composition = models.TextField(**{
+        'default': '',
         'help_text': 'Composition of the food.',
     })
+    preview_description = models.CharField(**{
+        'max_length': 255,
+        'default': '',
+        'help_text': 'Food short description.',
+    })
     description = models.TextField(**{
+        'default': '',
         'help_text': 'Food description.',
     })
     price = models.DecimalField(**{

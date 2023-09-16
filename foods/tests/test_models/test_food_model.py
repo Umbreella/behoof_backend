@@ -31,6 +31,7 @@ class FoodTestCase(TestCase):
             'preview': tempfile.NamedTemporaryFile(suffix='.jpg').name,
             'title': 'title',
             'composition': 'composition',
+            'preview_description': 'preview_description',
             'description': 'description',
             'price': 100,
             'weight': 100,
@@ -42,9 +43,10 @@ class FoodTestCase(TestCase):
 
     def test_Should_IncludeRequiredFields(self):
         expected_fields = [
-            'id', 'category', 'preview', 'title', 'composition', 'description',
-            'price', 'weight', 'proteins', 'fats', 'carbohydrates',
-            'kilocalories', 'is_published',
+            'id', 'category', 'preview', 'title', 'composition',
+            'preview_description', 'description', 'price', 'weight',
+            'proteins', 'fats', 'carbohydrates', 'kilocalories',
+            'is_published',
         ]
         real_fields = [
             field.name for field in self.tested_class._meta.get_fields()
@@ -59,6 +61,7 @@ class FoodTestCase(TestCase):
             'preview': ImageField,
             'title': CharField,
             'composition': TextField,
+            'preview_description': CharField,
             'description': TextField,
             'price': DecimalField,
             'weight': PositiveIntegerField,
@@ -82,6 +85,7 @@ class FoodTestCase(TestCase):
             'preview': 'Food preview.',
             'title': 'Food title.',
             'composition': 'Composition of the food.',
+            'preview_description': 'Food short description.',
             'description': 'Food description.',
             'price': 'Food price',
             'weight': 'Food weight in grams.',
@@ -114,6 +118,9 @@ class FoodTestCase(TestCase):
                 'This field cannot be blank.',
             ],
             'composition': [
+                'This field cannot be blank.',
+            ],
+            'preview_description': [
                 'This field cannot be blank.',
             ],
             'description': [
@@ -149,6 +156,7 @@ class FoodTestCase(TestCase):
         data = self.data
         data.update({
             'title': 'q' * 256,
+            'preview_description': 'q' * 256,
         })
 
         instance = self.tested_class(**data)
@@ -158,6 +166,9 @@ class FoodTestCase(TestCase):
 
         expected_raise = {
             'title': [
+                'Ensure this value has at most 255 characters (it has 256).',
+            ],
+            'preview_description': [
                 'Ensure this value has at most 255 characters (it has 256).',
             ],
         }

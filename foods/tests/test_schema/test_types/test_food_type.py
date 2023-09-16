@@ -34,6 +34,7 @@ class FoodTypeTestCase(TestCase):
                 'preview': 'tmp_file',
                 'title': 'title',
                 'composition': 'composition',
+                'preview_description': 'preview_description',
                 'description': 'description',
                 'price': 100,
                 'weight': 100,
@@ -75,8 +76,9 @@ class FoodTypeTestCase(TestCase):
 
     def test_Should_IncludeRequiredFieldsFromModel(self):
         expected_fields = [
-            'id', 'preview', 'title', 'composition', 'description', 'price',
-            'weight', 'proteins', 'fats', 'carbohydrates', 'kilocalories',
+            'id', 'preview', 'title', 'composition', 'preview_description',
+            'description', 'price', 'weight', 'proteins', 'fats',
+            'carbohydrates', 'kilocalories',
         ]
         real_fields = list(self.tested_class._meta.fields)
 
@@ -98,7 +100,8 @@ class FoodTypeTestCase(TestCase):
 
         all_fields_is_nonnull = all([
             real_fields.pop(field).__class__ == NonNull for field in [
-                'id', 'preview', 'title', 'composition', 'description',
+                'id', 'preview', 'title', 'composition', 'preview_description',
+                'description',
             ]
         ])
 
@@ -114,6 +117,7 @@ class FoodTypeTestCase(TestCase):
                     preview
                     title
                     composition
+                    previewDescription
                     description
                     price
                     weight
@@ -134,6 +138,7 @@ class FoodTypeTestCase(TestCase):
                     'title': 'title',
                     'preview': 'build_absolute_uri',
                     'composition': 'composition',
+                    'previewDescription': 'preview_description',
                     'description': 'description',
                     'price': 100.0,
                     'weight': 100,

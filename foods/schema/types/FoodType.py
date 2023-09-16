@@ -16,8 +16,9 @@ class FoodType(DjangoObjectType):
     class Meta:
         model = Food
         fields = (
-            'id', 'preview', 'title', 'composition', 'description', 'price',
-            'weight', 'proteins', 'fats', 'carbohydrates', 'kilocalories',
+            'id', 'preview', 'title', 'composition', 'preview_description',
+            'description', 'price', 'weight', 'proteins', 'fats',
+            'carbohydrates', 'kilocalories',
         )
         interfaces = (FoodNode,)
 
