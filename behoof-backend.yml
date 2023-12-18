@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+    behoof_postgres:
+        image: postgis/postgis:14-3.4
+        container_name: BehoofPostgres
+        ports:
+            -   5432:5432
+        environment:
+            - POSTGRES_PASSWORD=postgres
+
+    behoof_backend:
+        build: .
+        container_name: BehoofBackend
+        ports:
+            -   8000:8000
+        env_file:
+            - .env.development.local
+        volumes:
+            - ./behoof:/usr/src/app/behoof
+            - ./foods:/usr/src/app/foods
+            - ./promotions:/usr/src/app/promotions
+            - ./restaurants:/usr/src/app/restaurants
+            - ./users:/usr/src/app/users
+            - ./static:/usr/src/app/static
+            - ./media:/usr/src/app/media
+            - ./.env.test.local:/usr/src/app/.env.test.local
+            - ./.coveragerc:/usr/src/app/.coveragerc
+            - ./htmlcov:/usr/src/app/htmlcov
+
+#networks:
+#    nginx:
+#        name: nginx
+#    behoof:
+#        name: behoof
+#    postgres:
+#        name: postgres

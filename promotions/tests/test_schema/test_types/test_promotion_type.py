@@ -1,9 +1,10 @@
 import graphene
 from django.test import TestCase
 from django.utils import timezone
-from graphene import Context, NonNull, Schema, relay
+from graphene import Context, NonNull, Schema, relay, String
 from graphene.test import Client
 
+from behoof.graphql.nodes.IsPublichedNode import IsPublishedNode
 from ....models.Promotion import Promotion
 from ....schema.types.PromotionType import PromotionType
 
@@ -25,7 +26,8 @@ class PromotionTypeTestCase(TestCase):
                 'id': 1,
                 'preview': 'preview',
                 'title': 'title',
-                'description': 'description',
+                'description': 'description' * 100,
+                'is_published': True,
             }),
         ])
 
@@ -35,7 +37,7 @@ class PromotionTypeTestCase(TestCase):
 
     def setUp(self):
         class TestQuery(graphene.ObjectType):
-            test = relay.Node.Field(self.tested_class)
+            test = IsPublishedNode.Field(self.tested_class)
 
         self.gql_client = Client(**{
             'schema': Schema(**{
@@ -51,7 +53,7 @@ class PromotionTypeTestCase(TestCase):
 
     def test_Should_IncludeDefiniteInterfaces(self):
         expected_interfaces = [
-            relay.Node,
+            IsPublishedNode,
         ]
         real_interfaces = list(self.tested_class._meta.interfaces)
 
@@ -60,13 +62,16 @@ class PromotionTypeTestCase(TestCase):
     def test_Should_IncludeRequiredFieldsFromModel(self):
         expected_fields = [
             'id', 'preview', 'title', 'description', 'start_time', 'end_time',
+            'preview_description',
         ]
         real_fields = list(self.tested_class._meta.fields)
 
         self.assertEqual(expected_fields, real_fields)
 
     def test_Should_SpecificTypeForEachField(self):
-        expected_fields = {}
+        expected_fields = {
+            'preview_description': String,
+        }
         real_fields = {
             key: value.type
             for key, value in self.tested_class._meta.fields.items()
@@ -91,6 +96,7 @@ class PromotionTypeTestCase(TestCase):
                     preview
                     title
                     description
+                    previewDescription
                 }
             }
             """,
@@ -103,10 +109,13 @@ class PromotionTypeTestCase(TestCase):
                     'id': 'UHJvbW90aW9uVHlwZTox',
                     'preview': 'build_absolute_uri',
                     'title': 'title',
-                    'description': 'description',
+                    'description': 'description' * 100,
+                    'previewDescription': ('description' * 100)[:254] + '…',
                 },
             },
         }
         real_data = response
+
+        self.maxDiff = None
 
         self.assertEqual(expected_data, real_data)

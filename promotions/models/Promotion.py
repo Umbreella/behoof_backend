@@ -24,6 +24,11 @@ class Promotion(models.Model):
         'help_text': 'Promotion start time.',
     })
 
+    is_published = models.BooleanField(**{
+        'default': False,
+        'help_text': 'Displayed to the user.',
+    })
+
     def __str__(self):
         return f'{self.title}'
 

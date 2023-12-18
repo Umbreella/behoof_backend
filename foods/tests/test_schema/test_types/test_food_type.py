@@ -3,9 +3,9 @@ from django.test import TestCase
 from graphene import Context, NonNull, Schema
 from graphene.test import Client
 
+from behoof.graphql.nodes.IsPublichedNode import IsPublishedNode
 from ....models.Category import Category
 from ....models.Food import Food
-from ....schema.nodes.FoodNode import FoodNode
 from ....schema.types.FoodType import FoodType
 
 
@@ -52,7 +52,7 @@ class FoodTypeTestCase(TestCase):
 
     def setUp(self):
         class TestQuery(graphene.ObjectType):
-            test = FoodNode.Field(self.tested_class)
+            test = IsPublishedNode.Field(self.tested_class)
 
         self.gql_client = Client(**{
             'schema': Schema(**{
@@ -68,7 +68,7 @@ class FoodTypeTestCase(TestCase):
 
     def test_Should_IncludeDefiniteInterfaces(self):
         expected_interfaces = [
-            FoodNode,
+            IsPublishedNode,
         ]
         real_interfaces = list(self.tested_class._meta.interfaces)
 

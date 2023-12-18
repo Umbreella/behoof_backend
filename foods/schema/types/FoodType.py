@@ -1,8 +1,8 @@
 import graphene
 from graphene_django import DjangoObjectType
 
+from behoof.graphql.nodes.IsPublichedNode import IsPublishedNode
 from ...models.Food import Food
-from ..nodes.FoodNode import FoodNode
 
 
 class FoodType(DjangoObjectType):
@@ -20,7 +20,7 @@ class FoodType(DjangoObjectType):
             'description', 'price', 'weight', 'proteins', 'fats',
             'carbohydrates', 'kilocalories',
         )
-        interfaces = (FoodNode,)
+        interfaces = (IsPublishedNode,)
 
     def resolve_preview(self, info):
         return info.context.build_absolute_uri(self.preview.url)

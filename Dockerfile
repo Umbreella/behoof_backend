@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app
 
 RUN poetry config virtualenvs.in-project true --local && \
-    poetry install --without dev,test
+    poetry install --without dev
 
 
 FROM python:3.10-slim

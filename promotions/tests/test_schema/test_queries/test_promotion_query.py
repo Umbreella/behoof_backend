@@ -17,10 +17,18 @@ class PromotionQueryTestCase(TestCase):
 
         Promotion.objects.bulk_create([
             Promotion(**{
+                'id': 3,
+                'preview': 'preview',
+                'title': 'title',
+                'description': 'description',
+                'is_published': True,
+            }),
+            Promotion(**{
                 'id': 2,
                 'preview': 'preview',
                 'title': 'title',
                 'description': 'description',
+                'is_published': True,
             }),
             Promotion(**{
                 'id': 1,
@@ -58,12 +66,12 @@ class PromotionQueryTestCase(TestCase):
                     'edges': [
                         {
                             'node': {
-                                'id': 'UHJvbW90aW9uVHlwZTox',
+                                'id': 'UHJvbW90aW9uVHlwZToy',
                             },
                         },
                         {
                             'node': {
-                                'id': 'UHJvbW90aW9uVHlwZToy',
+                                'id': 'UHJvbW90aW9uVHlwZToz',
                             },
                         },
                     ],

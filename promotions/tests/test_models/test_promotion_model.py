@@ -1,6 +1,6 @@
 from django.contrib.gis.db.models import BigAutoField, CharField
 from django.core.exceptions import ValidationError
-from django.db.models import DateTimeField, ImageField, TextField
+from django.db.models import DateTimeField, ImageField, TextField, BooleanField
 from django.test import TestCase
 from django.utils import timezone
 
@@ -27,6 +27,7 @@ class PromotionTestCase(TestCase):
     def test_Should_IncludeRequiredFields(self):
         expected_fields = [
             'id', 'preview', 'title', 'description', 'start_time', 'end_time',
+            'is_published',
         ]
         real_fields = [
             field.name for field in self.tested_class._meta.get_fields()
@@ -42,6 +43,7 @@ class PromotionTestCase(TestCase):
             'description': TextField,
             'start_time': DateTimeField,
             'end_time': DateTimeField,
+            'is_published': BooleanField,
         }
         real_fields = {
             field.name: field.__class__
@@ -58,6 +60,7 @@ class PromotionTestCase(TestCase):
             'description': 'Promotion description.',
             'start_time': 'Promotion start time.',
             'end_time': 'Promotion start time.',
+            'is_published': 'Displayed to the user.',
         }
         real_help_text = {
             field.name: (
@@ -126,6 +129,10 @@ class PromotionTestCase(TestCase):
         expected_end_time = timezone.now().strftime(self.date_format)
         real_end_time = instance.end_time.strftime(self.date_format)
 
+        expected_is_published = False
+        real_is_published = instance.is_published
+
         self.assertEqual(expected_str, real_str)
         self.assertEqual(expected_start_time, real_start_time)
         self.assertEqual(expected_end_time, real_end_time)
+        self.assertEqual(expected_is_published, real_is_published)
